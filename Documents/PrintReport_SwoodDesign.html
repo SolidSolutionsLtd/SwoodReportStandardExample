@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Print</title>
+		<link rel="icon" type="image/png" href="../Resources/Images/TabIcon.png" />
+		<link href="../Resources/CSS/SWOODReport.css" rel="stylesheet" type="text/css" />
+		<link href="../Resources/CSS/SWOODReportClient.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" media="print" href="../Resources/CSS/print.css" />
+		<link rel="stylesheet" type="text/css" media="print" href="../Resources/CSS/printClient.css" />
+		<script type="text/javascript" src="../Resources/JS/Table.js"></script>
+		<script type="text/javascript" src="../Resources/JS/jquery.js"></script>
+		<script type="text/javascript" src="../Resources/JS/socket.io.js"></script>
+		<script type="text/javascript" src="../Resources/JS/CommonFunctions.js"></script>
+		<script type="text/javascript" src="../Resources/JS/ServerClient.js"></script>
+		<script type="text/javascript" src="../Resources/JS/ReportHeader.js"></script>
+		<script type="text/javascript" src="../Resources/JS/DefaultSettings.js"></script>
+		<script type="text/javascript" src="../Resources/JS Clients/ReportSettings.js"></script>
+		<script type="text/javascript" src="Database_SwoodDesign.js"></script>
+		<script type="text/javascript" src="../Resources/JS/DataPost.js"></script>
+		<script type="text/javascript" src="../Resources/JS/BoardEstimation.js"></script>
+		<script type="text/javascript" src="../Resources/JS/CuttingPattern.js"></script>
+		<script type="text/javascript" src="../Resources/JS/Charts.js"></script>
+		<script type="text/javascript" src="../Resources/JS/Summary.js"></script>
+		<script type="text/javascript" src="../Resources/JS/TableFunctions.js"></script>
+		<script type="text/javascript" src="../Resources/JS/Search.js"></script>
+		<script type="text/javascript" src="../Resources/JS/PrintReport.js"></script>
+		<script type="text/javascript" src="../Resources/JS Clients/Patch.js"></script>
+	</head>
+
+	<style>
+		body {
+			overflow: hidden; /* Hide scrollbars */
+		}
+	</style>
+
+	<body>
+		<p hidden id="Resource_Path">../Resources</p>
+
+		<div class="PrintModalBackground">
+			<div class="modalContainer">
+				<div hidden id="myProgress">
+					<div id="myBar"></div>
+				</div>
+				<div class="footer">
+					<p class="modalNote" id="note">Processing Data...</p>
+					<div id="Spinner" style="float: right" class="loader"></div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			var PrintReport = true
+			var PrintTableHeader = ''
+			// var ResourcesPath = document.getElementById("Resource_Path").textContent;
+			// var ReportType = "Relative";
+
+			// Display Header
+			document.title = ReportDatabase.ProjectData.ProjectName + '_Report'
+
+			var Customer = 'ACME'
+			var OrderNumber = '&nbsp;'
+			var CreatedBy = '&nbsp;'
+			var ProjectDate = '06/12/2024 6:45:46 PM'
+		</script>
+
+		<script>
+			GetDatabasePages()
+
+			PrintPages()
+
+			GetData()
+		</script>
+	</body>
+</html>

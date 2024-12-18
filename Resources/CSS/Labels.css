@@ -1,0 +1,186 @@
+/* SSMClient: Solid Solutions */
+
+:root {
+	--FontFamily: Arial, Helvetica, sans-serif;
+	--FontSize: 15px;
+	--Columns: 2;
+	--Rows: 5;
+	--PageHeight: 297mm;
+	--PageWidth: 210mm;
+	--Padding-top: 5mm;
+	--Padding-bottom: 5mm;
+	--Padding-left: 5mm;
+	--Padding-right: 5mm;
+	--Label-ExternalPadding: 2mm;
+	--Label-CellPadding: 1mm;
+	--Label-CellBorderSize: 1px;
+	--Label-VerticalGap: 2.5mm;
+	--Label-HorizontalGap: 2.5mm;
+
+	--FontFamily_Frames: Arial, Helvetica, sans-serif;
+	--FontSize_Frames: 15px;
+	--Columns_Frames: 2;
+	--Rows_Frames: 5;
+	--PageHeight_Frames: 297mm;
+	--PageWidth_Frames: 210mm;
+	--Padding-top_Frames: 5mm;
+	--Padding-bottom_Frames: 5mm;
+	--Padding-left_Frames: 5mm;
+	--Padding-right_Frames: 5mm;
+	--Label-ExternalPadding_Frames: 2mm;
+	--Label-CellPadding_Frames: 1mm;
+	--Label-CellBorderSize_Frames: 1px;
+	--Label-VerticalGap_Frames: 2.5mm;
+	--Label-HorizontalGap_Frames: 2.5mm;
+
+	--FontFamily_Nest: Arial, Helvetica, sans-serif;
+	--FontSize_Nest: 15px;
+	--Columns_Nest: 2;
+	--Rows_Nest: 5;
+	--PageHeight_Nest: 297mm;
+	--PageWidth_Nest: 210mm;
+	--Padding-top_Nest: 5mm;
+	--Padding-bottom_Nest: 5mm;
+	--Padding-left_Nest: 5mm;
+	--Padding-right_Nest: 5mm;
+	--Label-ExternalPadding_Nest: 2mm;
+	--Label-CellPadding_Nest: 1mm;
+	--Label-CellBorderSize_Nest: 1px;
+	--Label-VerticalGap_Nest: 2.5mm;
+	--Label-HorizontalGap_Nest: 2.5mm;
+
+	--FontFamily_BeamSaw: Arial, Helvetica, sans-serif;
+	--FontSize_BeamSaw: 15px;
+	--Columns_BeamSaw: 2;
+	--Rows_BeamSaw: 5;
+	--PageHeight_BeamSaw: 297mm;
+	--PageWidth_BeamSaw: 210mm;
+	--Padding-top_BeamSaw: 5mm;
+	--Padding-bottom_BeamSaw: 5mm;
+	--Padding-left_BeamSaw: 5mm;
+	--Padding-right_BeamSaw: 5mm;
+	--Label-ExternalPadding_BeamSaw: 2mm;
+	--Label-CellPadding_BeamSaw: 1mm;
+	--Label-CellBorderSize_BeamSaw: 1px;
+	--Label-VerticalGap_BeamSaw: 2.5mm;
+	--Label-HorizontalGap_BeamSaw: 2.5mm;
+}
+
+html {
+	font-family: var(--FontFamily);
+	font-size: var(--FontSize);
+}
+
+.barcode {
+	font-family: 'Code 128 Regular';
+	/* font-size: 5mm; */
+}
+
+.LabelsPage {
+	display: grid;
+	width: calc(var(--PageWidth) - var(--Padding-left) - var(--Padding-right));
+	height: calc(var(--PageHeight) - var(--Padding-top) - var(--Padding-bottom));
+	grid-template-columns: repeat(var(--Columns), 1fr);
+	grid-template-rows: repeat(var(--Rows), 1fr);
+	background-color: white;
+	padding-top: var(--Padding-top);
+	padding-bottom: var(--Padding-bottom);
+	padding-left: var(--Padding-left);
+	padding-right: var(--Padding-right);
+	grid-gap: var(--Label-HorizontalGap);
+	grid-column-gap: var(--Label-VerticalGap);
+}
+
+.Label {
+	display: grid;
+	grid-template-rows: repeat(var(--LabelRows), 1fr);
+	grid-template-columns: repeat(12, 1fr);
+	border: 1px dashed rgba(128, 128, 128, 0.753);
+	padding: var(--Label-ExternalPadding);
+	border-collapse: collapse;
+	grid-gap: 1px;
+
+	/* Prevent content from expanding grid items  */
+	min-height: 0;
+	min-width: 0;
+}
+
+.LabelCell {
+	outline: var(--Label-CellBorderSize) solid rgb(0, 0, 0);
+	padding: var(--Label-CellPadding);
+	overflow: hidden;
+
+	/* Use a flexbox layout */
+	display: flex;
+
+	/* vertically center items */
+	align-items: center;
+
+	/* horizontally center items */
+	justify-content: center;
+
+	white-space: nowrap;
+}
+
+.LabelCell > p {
+	margin: 0px;
+	text-align: center;
+}
+
+.LabelCell > a {
+	display: flex;
+}
+
+.LabelCellImage {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+}
+
+.GrainContainer {
+	position: absolute;
+	top: 50%;
+	right: 50%;
+}
+
+.GrainContainer > img {
+	position: absolute;
+	top: 50%;
+	right: 50%;
+}
+
+.TopGrain {
+	z-index: 2;
+}
+
+.img-Panel {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	/* height: var(--ImageSize); */
+	height: 70cqi;
+
+	/* background-size: 100%; */
+
+	/* Center grain container  */
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.redFont {
+	color: red;
+}
+
+.whiteFont {
+	color: white;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.LabelSVGElement {
+	width: 100%;
+	height: 100%;
+}

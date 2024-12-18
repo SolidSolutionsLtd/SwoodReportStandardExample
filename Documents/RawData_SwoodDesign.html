@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Raw Data View</title>
+		<link rel="icon" type="image/png" href="../Resources/Images/TabIcon.png" />
+		<link rel="stylesheet" type="text/css" media="print" href="../Resources/CSS/print.css" />
+		<link rel="stylesheet" type="text/css" media="print" href="../Resources/CSS/printClient.css" />
+		<script type="text/javascript" src="../Resources/JS/jquery.js"></script>
+		<script type="text/javascript" src="../Resources/JS/jsonViewer.js"></script>
+		<script type="text/javascript" src="../Resources/JS/CommonFunctions.js"></script>
+		<script type="text/javascript" src="../Resources/JS/RawDataViewer.js"></script>
+	</head>
+
+	<style type="text/css">
+		* {
+			background-color: #1c2833;
+		}
+
+		body {
+			margin: 0;
+		}
+
+		#json-display {
+			border: none;
+			margin: 0;
+			padding: 10px 20px;
+		}
+
+		.json-literal-boolean {
+			color: red;
+		}
+
+		.buttons {
+			position: sticky;
+			top: 0;
+			z-index: 999;
+		}
+
+		button {
+			background-color: #06883e;
+			border: none;
+			color: white;
+			padding: 5px 10px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 10px 0px 10px 15px;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+	</style>
+
+	<body>
+		<div class="buttons">
+			<button id="expandAll">Expand All</button>
+			<button id="collapseAll">Collapse All</button>
+		</div>
+
+		<pre id="json-display"></pre>
+
+		<script>
+			var PrintReport = false
+
+			// Get query string
+			const urlParams = new URLSearchParams(location.search)
+			let ProjectDB = urlParams.get('ProjectDB')
+
+			ProjectDB = OverwriteDB(ProjectDB, "Database_SwoodDesign.js")
+
+			ScriptLoader([
+				ProjectDB
+			], async function() {
+
+				function getJson() {
+					try {
+						return JSON.parse(JSON.stringify(ReportDatabase));
+					} catch (ex) {
+						alert('Wrong JSON Format: ' + ex.message);
+					}
+				}
+
+				const editor = new JsonEditor('#json-display', getJson(), {defaultCollapsed: true});
+
+				ProcessRawViewer()
+
+			})
+		</script>
+	</body>
+</html>
