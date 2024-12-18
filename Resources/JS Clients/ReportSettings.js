@@ -1,4 +1,4 @@
-// SSMClient: Solid Solutions Report Example
+// SSMClient: Solid Solutions
 
 const ReportSettings = {
 	/*	========================================
@@ -86,7 +86,7 @@ const ReportSettings = {
 		{ Property: 'Quantity', Header: 'Qty', Type: 'number', Search: true, Print: true, HozAlign: 'center', Width: '100' },
 		// { Property: 'NestingQty', Header: 'Nesting Qty', Type: 'number', Search: true, Print: true, HozAlign: 'center', Width: '180' },
 		// { Property: 'DesignQty', Header: 'DesignQty', Type: 'number', Search: true, Print: true, HozAlign: 'center', Width: '180' },
-		{ Property: 'Grain', Header: 'Grain', Type: 'tickCross', Search: false, Print: true, HozAlign: 'center', Width: '90' },
+		{ Property: 'HasGrain', Header: 'Grain', Type: 'tickCross', Search: false, Print: true, HozAlign: 'center', Width: '90' },
 		// { Property: 'Scribe', Header: 'Scribe', Type: 'tickCross', Search: false, Print: true, HozAlign: 'center', Width: '90' },
 		{ Property: 'Material', Header: 'Material', Type: 'alphanum', Search: true, Print: true, HozAlign: 'center', Width: '250' },
 		// { Property: 'IsNested', Header: 'Nested', Type: 'tickCross', Search: false, Print: false, HozAlign: 'center', Width: '80' },
@@ -234,6 +234,7 @@ const ReportSettings = {
 	ShowPanelID: { Property: 'PanelID', Header: 'Panel ID', Show: true },
 
 	WriteStockProperties: true,
+	ShowEdgebandCorners: false,
 
 	// Set Property to '' to define side header
 	PanelDetailsColumns: [
