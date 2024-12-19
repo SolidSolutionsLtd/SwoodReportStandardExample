@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cutting Pattern Detailed List</title>
+		<link rel="icon" type="image/png" href="../Resources/Images/TabIcon.png" />
+		<link href="../Resources/CSS/SWOODReport.css" rel="stylesheet" type="text/css" />
+		<link href="../Resources/CSS/SWOODReportClient.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" media="print" href="../Resources/CSS/print.css" />
+		<link rel="stylesheet" type="text/css" media="print" href="../Resources/CSS/printClient.css" />
+		<script type="text/javascript" src="../Resources/JS/jquery.js"></script>
+		<script type="text/javascript" src="../Resources/JS/socket.io.js"></script>
+		<script type="text/javascript" src="../Resources/JS/Charts.js"></script>
+		<script type="text/javascript" src="../Resources/JS/CommonFunctions.js"></script>
+		<script type="text/javascript" src="../Resources/JS/ServerClient.js"></script>
+		<script type="text/javascript" src="../Resources/JS/ReportHeader.js"></script>
+		<script type="text/javascript" src="../Resources/JS/Menu.js"></script>
+		<script type="text/javascript" src="../Resources/JS/Messages.js"></script>
+		<script type="text/javascript" src="../Resources/JS/DefaultSettings.js"></script>
+		<script type="text/javascript" src="../Resources/JS Clients/ReportSettings.js"></script>
+	</head>
+
+	<body>
+		<div id="ReportHeaderContainer"></div>
+		<div id="Menu-id"></div>
+		<div id="PrintHeaderContainer"></div>
+		<div id="PrintContainer"></div>
+		<div id="Footer"></div>
+
+		<script>
+			var PrintReport = false
+			var DetailedList = true
+
+			var Sheets = new Array()
+			var Tools = new Array()
+			var SpindleTools = new Array()
+
+			// Get query string
+			const urlParams = new URLSearchParams(location.search)
+			let ProjectDB = urlParams.get('ProjectDB')
+
+			ProjectDB = OverwriteDB(ProjectDB, "Database_Merged - SwoodNesting.js")
+
+			ScriptLoader([
+				ProjectDB,
+				'../Resources/JS/DataPost.js',
+				'../Resources/JS/CuttingPattern.js',
+				'../Resources/JS Clients/Patch.js'
+
+			], async function() {
+
+				await GetProjectData()
+
+				PrintTableHeader = WritePrintHeader('Cutting Pattern Detailed List', ProjectData)
+
+				await WriteReportHeader('Cutting Pattern Detailed List <span class="betaClass">βeta</span>')
+
+				WriteMenu()
+
+				await WriteCuttingPatternDetailedList()
+
+				WriteFooter()
+
+			})
+		</script>
+	</body>
+</html>

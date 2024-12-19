@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Labels Frames - SwoodNesting</title>
+		<link rel="icon" type="image/png" href="../Resources/Images/TabIcon.png" />
+		<link href="../Resources/CSS/Labels.css" rel="stylesheet" type="text/css" />
+		<link href="../Resources/CSS/LabelsClient.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" media="print" href="../Resources/CSS/PrintLabels.css" />
+		<link rel="stylesheet" type="text/css" media="print" href="../Resources/CSS/PrintLabelsClient.css" />
+		<script type="text/javascript" src="../Resources/JS/jquery.js"></script>
+		<script type="text/javascript" src="../Resources/JS/barcode.js"></script>
+		<script type="text/javascript" src="../Resources/JS/qr-code.js"></script>
+		<script type="text/javascript" src="../Resources/JS/CommonFunctions.js"></script>
+		<script type="text/javascript" src="../Resources/JS/DefaultSettings.js"></script>
+		<script type="text/javascript" src="../Resources/JS Clients/ReportSettings.js"></script>
+	</head>
+
+	<body align="center" style="padding-right: 0mm; padding-left: 0mm; padding-bottom: 0mm; margin: 0mm; padding-top: 0mm; table-layout: fixed; background-color: #333333">
+		<div id="LabelsContainer" align="center" width="100%"></div>
+
+		<script>
+
+			const FrameLabels = true
+			const BeamSawLabels = false
+			var DetailedList = true
+
+			// Get query string
+			const urlParams = new URLSearchParams(location.search)
+			let ProjectDB = urlParams.get('ProjectDB')
+
+			ProjectDB = OverwriteDB(ProjectDB, "Database_SwoodNesting.js")
+
+			ScriptLoader([
+				ProjectDB,
+				'../Resources/JS/DataPost.js',
+				'../Resources/JS/Labels.js',
+				'../Resources/JS Clients/Patch.js'
+
+			], async function() {
+
+				await GetProjectData()
+
+				ProcessLabels()
+
+			})
+		</script>
+	</body>
+</html>

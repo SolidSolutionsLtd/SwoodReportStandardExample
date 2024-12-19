@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Panel Details</title>
+		<link rel="icon" type="image/png" href="../Resources/Images/TabIcon.png" />
+		<link href="../Resources/CSS/SWOODReport.css" rel="stylesheet" type="text/css" />
+		<link href="../Resources/CSS/SWOODReportClient.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" media="print" href="../Resources/CSS/print.css" />
+		<link rel="stylesheet" type="text/css" media="print" href="../Resources/CSS/printClient.css" />
+		<script type="text/javascript" src="../Resources/JS/jquery.js"></script>
+		<script type="text/javascript" src="../Resources/JS/socket.io.js"></script>
+		<script type="text/javascript" src="../Resources/JS/CommonFunctions.js"></script>
+		<script type="text/javascript" src="../Resources/JS/ServerClient.js"></script>
+		<script type="text/javascript" src="../Resources/JS/ReportHeader.js"></script>
+		<script type="text/javascript" src="../Resources/JS/Menu.js"></script>
+		<script type="text/javascript" src="../Resources/JS/Messages.js"></script>
+		<script type="text/javascript" src="../Resources/JS/DefaultSettings.js"></script>
+		<script type="text/javascript" src="../Resources/JS Clients/ReportSettings.js"></script>
+	</head>
+
+	<body>
+		<div id="ReportHeaderContainer"></div>
+		<div id="Menu-id"></div>
+		<div id="PrintHeaderContainer"></div>
+		<div id="PrintContainer"></div>
+		<div id="Footer"></div>
+
+		<script>
+			const urlParams = new URLSearchParams(location.search)
+
+			const QueryName = urlParams.get('Name')
+			let QueryImage = urlParams.get('Image')
+			if (QueryImage != undefined){
+				QueryImage = QueryImage.replace('Documents/','')
+			}
+
+			// console.log({QueryImage})
+
+			let PrintReport = false
+			if(urlParams.has('PrintReport')){
+				let QueryPrint = urlParams.get('PrintReport')
+				if (QueryPrint == 'true'){
+					PrintReport = true
+				}
+			}
+
+			// console.log('PrintReport:', PrintReport)
+
+			let ProjectDB = urlParams.get('ProjectDB')
+
+			ProjectDB = OverwriteDB(ProjectDB, "Database_SwoodNesting.js")
+
+			var DetailedList = false
+		</script>
+
+		<script>
+			ScriptLoader([ProjectDB, '../Resources/JS/DataPost.js', '../Resources/JS/PanelDetails.js', '../Resources/JS Clients/Patch.js'], async function () {
+				await GetProjectData()
+
+				if (!PrintReport) {
+					WritePrintHeader('Panel Details', ProjectData)
+
+					await WriteReportHeader('Panel Details')
+
+					WriteMenu()
+				}
+
+				$('#PrintContainer').append(
+					`
+			<table class="DetailedImageTable">
+				<tr>
+					<td class="Swipe" onclick="Previous('Panel', QueryName)">
+						&nbsp;
+						<br>
+						<img src="${ReportData.ResourcesPath}/Images/Next Arrow.png" style="transform: rotate(180deg);">
+						<br>
+						&nbsp;
+					</td>
+					<td class="img-MainDetails-Container" style="position: relative;">
+
+						<div hidden id="canvasZone" class="modelCanvas">
+							<canvas id="renderCanvas"></canvas>
+						</div>
+
+						<img id="img-MainDetails" class="img-MainPanelDetails"/>
+
+						<div hidden class="modelDisplayContainer">	
+							<table id="ToggleModel" >
+								<tr>
+									<th style="text-align: right;">3D Model</th>	
+									<th style="text-align: left;"> <label class="switch"><input type="checkbox" id="ToggleShowModel" onclick=""> <span class="slider round"></span></label></th>
+								</tr>
+							</table>
+						</div>
+
+					</td>
+					<td class="Swipe" onclick="Next('Panel', QueryName)">
+						&nbsp;
+						<br>
+						<img src="${ReportData.ResourcesPath}/Images/Next Arrow.png">
+						<br>
+
+					</td>
+				</tr>
+			</table>
+			`
+				)
+
+				const ImageElement = document.getElementById('img-MainDetails')
+				ImageElement.src = QueryImage?.replace('#', '%23')
+
+				SwipeNumber('Panel', QueryName)
+
+				await GetPanelsDetails(QueryName)
+
+				if (!PrintReport) WriteFooter()
+
+				SendData('PanelDetails-' + QueryName)
+
+				if (!PrintReport) {
+					ScriptLoader(['../Resources/JS/Babylon.js', '../Resources/JS/BabylonFunctions.js'], function () {
+						if (checkModelExists(QueryName)) {
+							ScriptLoader([`Models/Model_${QueryName}.js`], function () {
+								// window.addEventListener('load', function() {
+								StartScene(QueryName)
+								// })
+							})
+						}
+					})
+				}
+			})
+		</script>
+	</body>
+</html>
